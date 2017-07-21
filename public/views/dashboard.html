@@ -1,0 +1,24 @@
+<div id="dashboard">
+   <div id="requests-outstanding" ng-if="tradeRequestsOutstanding === true">
+      <p>Someone wants to trade!</p>
+   </div>
+   
+   <div id="bookManagement" ng-if="managingUserBooks === true">
+      <div class="account-well">
+         <p>title</p>
+         <input id="submit-book-title-input" type="text" placeholder="Hammers On Bone" id="contactName">
+      </div> 
+      
+      <div class="account-well">
+         <p>author</p>
+         <input id="submit-book-author-input" type="text" placeholder="Cassandra Khaw" id="contactName">
+      </div> 
+      
+      <div class="account-well">
+         <p>genre</p>
+         <input id="submit-book-genre-input" type="text" placeholder="Children's" id="contactName">
+      </div> 
+      
+   </div>
+   <div id="submitBook" ng-if="managingUserBooks === true" ng-click="nav.submitBook();">Submit</div>
+</div>

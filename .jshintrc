@@ -1,0 +1,14 @@
+{
+    "globals": {
+        "$": true,
+       "i": true,
+       "j": true,
+       "console": true,
+       "document": true,
+       "__dirname": true,
+       "process": true,
+       "require": true,
+       "angular": true,
+       "module": true
+    }
+}

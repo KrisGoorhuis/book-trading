@@ -1,0 +1,190 @@
+$hover-color: rgba(244, 244, 244, 1);
+$nav-height: 40px;
+
+@mixin sidebar-text-style {
+   font-size: .62em;
+   font-weight: bold;
+   letter-spacing: 1px;
+}
+
+body {
+   margin: 0px;
+   padding-top: $nav-height;
+}
+
+.center-column {
+   display: flex;
+   justify-content: center;
+}
+
+#nav-container {
+   width: 100%;
+   position: fixed;
+   overflow: visible;
+   top: 0px;
+   overflow: auto;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   font-family: 'Poppins';
+}
+
+nav {
+   width: 100%;
+   height: $nav-height;
+   list-style: none;
+   display: flex;
+   justify-content: center;
+   ul {
+      margin: 0px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+   }
+   li {
+      height: 75%;
+      width: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-left: 1px solid rgb(200, 200, 200);
+      transition: 0.2s;
+      &:nth-last-child(1) {
+         border-right: 1px solid rgb(200, 200, 200);
+      }
+
+      &:hover {
+         background-color: $hover-color;
+         cursor: pointer;
+      }
+
+      i {
+         font-size: 1.5em;
+      }
+      p {
+         @include sidebar-text-style;
+      }
+   }
+}
+
+a {
+   text-decoration: none;
+   color: black;
+}
+
+#book-browser-splash {
+   display: flex;
+   flex-direction: row;
+}
+
+#book-listing {
+   min-height: 350px;
+   min-width: 200px;
+   margin: 10px;
+   padding: 10px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   transition: 0.3s;
+   img {
+      height: 250px;
+      width: auto;
+      margin-bottom: 10px;
+   }
+   
+   #blurb {
+      position: absolute;
+      margin-top: 160px;
+      p {
+      margin: 0px;
+      font-family: 'poppins';
+      font-size: 12px;
+      }
+   }
+   
+   
+   &:hover {
+      img {
+         height: 280px;
+      }
+   }
+}
+
+#account-access {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   font-family: 'poppins';
+   #account-box {
+      margin-top: 50px;
+      padding: 10px;
+      width: 400px;
+      height: 300px;
+      border-radius: 4px;
+      background-color: rgb(250, 250, 250);
+   }
+   .account-well {
+      margin: 10px;
+   }
+   p {
+      margin: 0px;
+   }
+   #submitLoginButton{
+      &:hover {
+         background-color: $hover-color;
+         cursor: pointer;
+      }
+   }
+}
+
+#dashboard {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   #requests-outstanding {
+
+      p {
+         margin: 5px;
+      }
+   }
+   
+   #bookManagement {
+      display: flex;
+      div {
+         margin: 5px;
+      }
+   }
+   
+   #submitBook {
+      &:hover {
+         background-color: $hover-color;
+         cursor: pointer;
+      } 
+   }
+}
+
+   
+
+
+// Input placeholder color is fiddly.
+$placeholder-color: rgba(0, 0, 0, 0.3);
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:   $placeholder-color;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    $placeholder-color;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    $placeholder-color;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    $placeholder-color;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    $placeholder-color;
+}

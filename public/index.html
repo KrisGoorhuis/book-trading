@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="bookTrader">
+<head>
+   <link href="styles/style.css" rel="stylesheet" type="text/css">
+   <link href="https://fonts.googleapis.com/css?family=Pangolin|Poppins" rel="stylesheet">
+   
+   <meta name="viewport" content="initial-scale=1">
+   <meta name="viewport" content="width=device-width">
+   
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   <script src="https://use.fontawesome.com/dfbeabcf83.js"></script>
+   
+   <script src="/scripts/directives/bookish-directives.js"></script>
+   <script src="/scripts/controllers/book-list-controllers.js"></script>
+   <script src="/scripts/controllers/nav-controller.js"></script>
+   <script src="scripts/app.js"></script>
+</head>
+   
+   
+   
+<body ng-controller="navController as nav">
+   <div id="nav-container" class="center-column"> 
+      <nav>
+         <ul>
+            <li>home</li>
+            <li>by genre</li>
+            <li ng-if="loggedIn === false" ng-click="nav.showAccountWindow()">log in</li>  
+            <li ng-if="loggedIn === true" ng-click="nav.manageUserBooks()">my books</li>
+         </ul> 
+      </nav>
+      
+      <account-access ng-show="showingAccountWindow === true"></account-access>
+      
+   </div>
+   
+   <dashboard ng-if="loggedIn === true"></dashboard>
+   
+   <book-browser-splash></book-browser-splash>
+
+   
+</body>
+</html>
