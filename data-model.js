@@ -46,11 +46,3 @@
    ]
 }
 
-/* 
-   Separate collection for all books ever listed.
-      Include the name of the person who listed that book.
-   
-   Someone clicks on a book, hits "request"
-      .find() for user name as given by book listing, in the other book listing collection
-      Place listing in "trade_requests" array with requester's user name and the book requested
-*/

@@ -9,7 +9,7 @@
       $scope.currentUserName = "temp";
       $scope.managingUserBooks = false;
       $scope.tradeRequestsOutstanding = true; // TODO: set to false after finished testing
-      $scope.bookArray = [1,2,3,4,5];
+      $scope.bookArray = [1, 2];
       
       // Populate the book list on opening the page.
       $http.get('/getBooks').then(function(response) {
@@ -25,21 +25,27 @@
          // Why can't we send data with a .get request? We're just getting info, not posting anything. I think I just don't understand the difference fully.
          $http.post('/getUserBooks', requestObject).then(function(response) {
             //console.log(response.data.book_list.reverse());
+            console.log(requestObject);
             $scope.bookArray = response.data.book_list.reverse();
-            console.log($scope.bookArray); //TODO: bookArray is what I want it to be, but the ng-repeat broke.
+            console.log($scope.bookArray);
          });
       }
+      
+      this.centerBookSelection = function(event) {
+         console.log(event.target.id);
+      };
       
       this.showAccountWindow = function() {
          $scope.showingAccountWindow = true;
       };
       
-      this.closeLoginWindow = function($event) {
-         if ($event.target.id === "login") {
+      this.closeAccountWindow = function(event) {
+         if (event.target.id === "account-access") {
             $scope.showingAccountWindow = false;
+            $scope.creatingAccount = false;
          }
       };
-      
+
       this.attemptLogin = function() {
          var requestObject = {
             "user_name": $('#login-username-input').val(),
@@ -52,7 +58,8 @@
                $scope.currentUserName = $('#login-username-input').val();
             }
             if (response.data === false) {
-               
+               $('#login-failed').text("Name or password is incorrect");
+               console.log("wrong user name or password");
             }
          });
       };
@@ -67,10 +74,16 @@
             "user_password": $('#create-account-password-input').val()
          };
          $scope.currentUserName = $('#create-account-username-input').val();
-         $http.post('/createUser', requestObject);
-         console.log("You exist now!");
-         $scope.loggedIn = true;
-         $scope.userCreated = true;
+         $http.post('/createUser', requestObject).then(function(response) {
+            if (response.data[0] === true) {
+               console.log("You exist now!");
+               $scope.loggedIn = true;
+               $scope.userCreated = true;
+            } else if (response.data[1] === 1) {
+               $('#account-creation-failed').text("That name is in use");
+            }
+         });
+         
       };
       
       this.manageUserBooks = function() {
@@ -85,10 +98,14 @@
             "author": $('#submit-book-author-input').val(),
             "genre": $('#submit-book-genre-input').val()
          };
-         
-         $http.post('/postBook', requestObject).then(function() {
-            console.log("attempted a post");
+
+         $http.post('/postBook', requestObject).then(function(response) {
+            console.log("attempted a post"); // TODO: We're posting successfully, but the .then stuff isn't happening.
             getUserBooks();
+            $('#submit-book-title-input').val("");
+            $('#submit-book-author-input').val("");
+            $('#submit-book-genre-input').val("");
+            $('#submit-book-success').text("Book posted!");
          });     
       };
       

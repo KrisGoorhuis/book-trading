@@ -1,25 +1,29 @@
 <!-- TODO: Make the escape key close login window as well -->
-<div id="account-access" class="center-column" ng-click="nav.closeLoginWindow($event)">
+<div id="account-access" class="center-column" ng-click="nav.closeAccountWindow($event)">
    <div id="account-box">
-      <div id="login-box" ng-hide="creatingAccount">
+      <div class="relative-parent" id="login-box" ng-hide="creatingAccount">
          <div id="login-username" ng-click="nav.testPage()" class="login-well">
-            <p>user name</p>
+            <p>User name</p>
             <input id="login-username-input" type="text" placeholder="kris" id="contactName" class="contactField">
          </div>
          <div id="login-password" class="account-well">
-            <p>password</p>
+            <p>Password</p>
             <input id="login-password-input" type="text" placeholder="coolguy57" id="contactName" class="contactField">
          </div> 
-         <div id="submitLoginButton" ng-click="nav.attemptLogin()">Submit</div>
+         <div id="submitLoginButton" class="button-type-1" ng-click="nav.attemptLogin()">Submit</div>
+         <p id="login-failed"></p>
+         <div class="account-access-bottom-buttons">
+           
 
-         <div>
-            <p>Don't have an account?</p>
-            <p id="create-account-button" ng-click="nav.openCreateAccountWindow()">Make one</p>
+            <div>
+               <p>Don't have an account?</p>
+               <p id="create-account-button" class="button-type-1" ng-click="nav.openCreateAccountWindow()">Make one</p>
+            </div>
          </div>
       </div>
       
       
-      <div id="create-account" ng-show="creatingAccount === true && userCreated === false">
+      <div class="relative-parent" id="create-account" ng-show="creatingAccount === true && userCreated === false">
          <div id="create-account-username" ng-click="nav.testPage()" class="login-well">
             <p>new user name</p>
             <input id="create-account-username-input" type="text" placeholder="kris">
@@ -28,7 +32,8 @@
             <p>password</p>
             <input id="create-account-password-input" type="text" placeholder="coolguy57">
          </div> 
-         <div id="submitButton" ng-click="nav.createUser()">Submit</div>
+         <div id="submitAccountCreationButton" class="button-type-1" ng-click="nav.createUser()">Submit</div>
+         <p id="account-creation-failed"></p>
       </div>
       
       <div id="success" ng-show="userCreated">

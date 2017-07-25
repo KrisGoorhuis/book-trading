@@ -1,5 +1,5 @@
-<div id="book-browser-splash" ng-controller="navController as nav">
-   <div id="book-listing" ng-repeat="book in bookArray">
+<div id="book-browser-splash">
+   <div class="book-listing" id="book-listing-{{$index}}" ng-repeat="book in bookArray" ng-click="nav.centerBookSelection($event)">
       <img src="/images/hammers.jpg">
       <div id="blurb">
          <p>Author: Cass Khaw</p>

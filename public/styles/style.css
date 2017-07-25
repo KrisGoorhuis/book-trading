@@ -56,7 +56,7 @@ a {
   display: flex;
   flex-direction: row; }
 
-#book-listing {
+.book-listing {
   min-height: 350px;
   min-width: 200px;
   margin: 10px;
@@ -66,18 +66,18 @@ a {
   justify-content: center;
   align-items: center;
   transition: 0.3s; }
-  #book-listing img {
+  .book-listing img {
     height: 250px;
     width: auto;
     margin-bottom: 10px; }
-  #book-listing #blurb {
+  .book-listing #blurb {
     position: absolute;
     margin-top: 160px; }
-    #book-listing #blurb p {
+    .book-listing #blurb p {
       margin: 0px;
       font-family: 'poppins';
       font-size: 12px; }
-  #book-listing:hover img {
+  .book-listing:hover img {
     height: 280px; }
 
 #account-access {
@@ -96,12 +96,35 @@ a {
     border-radius: 4px;
     background-color: #fafafa; }
   #account-access .account-well {
-    margin: 10px; }
+    margin-bottom: 5px; }
   #account-access p {
     margin: 0px; }
-  #account-access #submitLoginButton:hover {
+  #account-access #submitLoginButton {
+    margin-bottom: 0px; }
+  #account-access #login-failed {
+    font-size: 12px;
+    color: rgba(255, 30, 30, 0.7); }
+
+#account-creation-failed {
+  font-size: 12px;
+  color: rgba(255, 30, 30, 0.7); }
+
+.button-type-1 {
+  background-color: gainsboro;
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px; }
+  .button-type-1:hover {
     background-color: #f4f4f4;
     cursor: pointer; }
+
+.relative-parent {
+  position: relative;
+  height: 100%; }
+
+.account-access-bottom-buttons {
+  position: absolute;
+  bottom: 10px; }
 
 #dashboard {
   display: flex;
@@ -110,13 +133,16 @@ a {
   align-items: center; }
   #dashboard #requests-outstanding p {
     margin: 5px; }
-  #dashboard #bookManagement {
+  #dashboard #book-management {
     display: flex; }
-    #dashboard #bookManagement div {
+    #dashboard #book-management div {
       margin: 5px; }
-  #dashboard #submitBook:hover {
-    background-color: #f4f4f4;
-    cursor: pointer; }
+  #dashboard #submit-book-success {
+    font-size: 12px;
+    color: rgba(30, 150, 30, 0.7);
+    position: absolute;
+    bottom: -40px;
+    width: 100px; }
 
 ::-webkit-input-placeholder {
   /* WebKit, Blink, Edge */

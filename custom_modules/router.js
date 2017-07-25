@@ -11,14 +11,14 @@ var mLabUri = "mongodb://kris:password@ds153352.mlab.com:53352/books";
 
 
 
-function createUser(name, password) {
+function createUser(user_name, password) {
    bcrypt.genSalt(10, function(error, salt) {
       bcrypt.hash(password, salt, function(error, hash) {
          
          // There is no salt variable below! 
          // bcrypt saves its salt as part of the hash line it produces. Neat.
          var databaseEntry = { 
-            "user_name": name,
+            "user_name": user_name,
             "hash": hash,
             "book_list": []    
          };
@@ -27,8 +27,7 @@ function createUser(name, password) {
             database.collection("users", function(error, collection) {
                collection.insert(databaseEntry);
             });
-         });
-            
+         });           
       });
    });   
 }
@@ -39,7 +38,21 @@ router.get('/', function(request, response) {
 });
 
 router.post('/createUser', function(request, response) {
-   createUser(request.body.user_name, request.body.user_password);
+   MongoClient.connect(localdb, function(error, database) {
+      database.collection("users", function(error, collection) {
+         collection.find({"user_name": request.body.user_name}).toArray(function(error, items) {
+            
+            console.log("user name array length: " + items.length);
+            if (items.length < 1) {
+               console.log("Inserting user");
+               createUser(request.body.user_name, request.body.user_password);
+               response.send([true, items.length]);
+            } else {
+               response.send([false, items.length]);
+            }
+         });
+      });
+   });  
 });
 
 router.get('/getBooks', function(request, response) {
@@ -57,13 +70,18 @@ router.post('/login', function(request, response) {
        database.collection("users", function(error, collection) {
           
          collection.find({"user_name": request.body.user_name}).toArray(function(error, items) {
-            var givenPassword = request.body.user_password;
-            var hash = items[0].hash; 
-            
-            // bcrypt's salt is automatically mixed in with its hash line
-            bcrypt.compare(givenPassword, hash, function(error, result) {
-               response.send(result);     
-            });    
+            if (items.length === 1) {
+               var givenPassword = request.body.user_password;
+               var hash = items[0].hash; 
+
+               // bcrypt's salt is automatically mixed in with its hash line
+               bcrypt.compare(givenPassword, hash, function(error, result) {
+                  response.send(result);   // "false" for wrong password  
+               });  
+            } else {
+               response.send(false); // "false" for no user by the given name
+            }
+              
          });
        });
     });
@@ -71,7 +89,6 @@ router.post('/login', function(request, response) {
 
 
 router.post('/getUserBooks', function(request, response) {
-   console.log(request.body);
    MongoClient.connect(localdb, function(error, database) {
       database.collection("users", function(error, collection) {
          
@@ -84,7 +101,6 @@ router.post('/getUserBooks', function(request, response) {
 });
 
 router.post('/postBook', function(request, response) {
-   console.log("attempting to post a book");
    MongoClient.connect(localdb, function(error, database) {
       
       database.collection("users", function(error, collection) {
@@ -100,11 +116,13 @@ router.post('/postBook', function(request, response) {
                //$set or something - operation two
             } 
          ); 
+         console.log("posted");
       });
       
       database.collection("bookList", function(error, collection) {
          collection.insert(
             {
+               "user_name": request.body.user_name,
                "title": request.body.title,
                "author": request.body.author,
                "genre": request.body.genre 
@@ -112,6 +130,7 @@ router.post('/postBook', function(request, response) {
          );
       });
       
+      response.send("success! Your .then() won't fire if I don't acknowledge you.");
    });
 });
 

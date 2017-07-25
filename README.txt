@@ -1,10 +1,16 @@
 TODO: (some stuff under data-model.js)
 
-   -Decide on a way to let the user add books once logged in. Bring back the "my-stuff" page?
+   -requesting a book
+      .find() for user name as given by book listing, in the other book listing collection
+         Place listing in "trade_requests" array with requester's user name and the book requested
    -Have the server not go down when a user cannot be found. Hee
    
-NOTES:
-   -People can write whatever they want in the genre field when submitting a book. Maybe have a dropdown of choices if this were ever developed further?
+EXPANSION NOTES:
+   -People can write whatever they want in the genre field when submitting a book. Maybe have a dropdown of choices?
+   -Store people's text for input fields if the close something before finishing. Not password?
+   
+LESSONS: 
+   -Declaring the same ng-controller again from within the first declaration creates a new scope. Scope problems can be difficult to figure out. 
    
 Data structure:
       database: mongodb://localhost:27017/localbooks

@@ -29,4 +29,11 @@
       };
    });
    
+   app.directive('individualBookListing', function() {
+      return {
+         restrict: 'E',
+         templateUrl: 'views/individual-book-listing.html'
+      };
+   });
+   
 })();
