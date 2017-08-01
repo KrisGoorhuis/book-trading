@@ -1,6 +1,6 @@
 body {
   margin: 0px;
-  padding-top: 40px; }
+  padding-top: 50px; }
 
 .center-column {
   display: flex;
@@ -14,20 +14,30 @@ body {
   overflow: auto;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-family: 'Poppins'; }
+  font-family: 'Poppins';
+  background-color: aliceblue;
+  height: 50px; }
+  #nav-container #logo {
+    font-size: 1.8em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    font-weight: 100; }
 
 nav {
-  width: 100%;
-  height: 40px;
+  width: 500px;
+  height: 100%;
   list-style: none;
   display: flex;
-  justify-content: center; }
+  justify-content: flex-start; }
   nav ul {
     margin: 0px;
     display: flex;
     justify-content: space-between;
-    align-items: center; }
+    align-items: center;
+    height: 100%; }
   nav li {
     height: 75%;
     width: 90px;
@@ -41,12 +51,10 @@ nav {
     nav li:hover {
       background-color: #f4f4f4;
       cursor: pointer; }
-    nav li i {
-      font-size: 1.5em; }
-    nav li p {
-      font-size: .62em;
-      font-weight: bold;
-      letter-spacing: 1px; }
+    nav li #all-books {
+      text-decoration: underline; }
+    nav li #my-books {
+      text-decoration: none; }
 
 a {
   text-decoration: none;
@@ -54,34 +62,55 @@ a {
 
 #book-browser-splash {
   display: flex;
+  flex-direction: column; }
+
+h3 {
+  margin: 20px;
+  margin-top: 40px;
+  margin-bottom: 0px; }
+
+#listing-container {
+  display: flex;
   flex-direction: row; }
 
 .book-listing {
-  min-height: 350px;
+  position: relative;
+  z-index: 1;
+  min-height: 300px;
   min-width: 200px;
   margin: 10px;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  transition: 0.3s; }
+  transition: 0.3s;
+  position: relative; }
   .book-listing img {
-    height: 250px;
-    width: auto;
-    margin-bottom: 10px; }
-  .book-listing #blurb {
+    width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+    position: absolute; }
+  .book-listing .blurb {
     position: absolute;
-    margin-top: 160px; }
-    .book-listing #blurb p {
+    bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    .book-listing .blurb p {
       margin: 0px;
       font-family: 'poppins';
       font-size: 12px; }
   .book-listing:hover img {
-    height: 280px; }
+    width: 220px;
+    height: auto; }
+
+#book-requested-notice {
+  background-color: gainsboro; }
 
 #account-access {
   position: fixed;
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;
@@ -89,6 +118,8 @@ a {
   background-color: rgba(0, 0, 0, 0.5);
   font-family: 'poppins'; }
   #account-access #account-box {
+    position: relative;
+    z-index: 100;
     margin-top: 50px;
     padding: 10px;
     width: 400px;
@@ -127,11 +158,13 @@ a {
   bottom: 10px; }
 
 #dashboard {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center; }
   #dashboard #requests-outstanding p {
+    font-family: 'lora';
     margin: 5px; }
   #dashboard #book-management {
     display: flex; }
@@ -143,6 +176,41 @@ a {
     position: absolute;
     bottom: -40px;
     width: 100px; }
+
+#individual-book-listing {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-family: 'poppins'; }
+  #individual-book-listing #individual-book-box {
+    margin-top: 50px;
+    padding: 10px;
+    width: 400px;
+    height: 550px;
+    border-radius: 4px;
+    background-color: #fafafa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: beige; }
+    #individual-book-listing #individual-book-box img {
+      width: 300px;
+      height: auto;
+      margin: 10px; }
+    #individual-book-listing #individual-book-box p {
+      margin: 2px;
+      margin-left: 20px;
+      width: 100%; }
+  #individual-book-listing #request-book-button:hover {
+    background-color: #f4f4f4;
+    cursor: pointer; }
+
+.invisible-to-click-event {
+  pointer-events: none; }
 
 ::-webkit-input-placeholder {
   /* WebKit, Blink, Edge */

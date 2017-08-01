@@ -1,27 +1,28 @@
 <div id="dashboard">
-   <div id="requests-outstanding" ng-if="tradeRequestsOutstanding === true">
-      <p>Someone wants to trade!</p>
+   <div id="requests-outstanding">
+      <p>Requests outstanding: {{requestsOutstanding}}</p>
    </div>
    
-   <div id="book-management" ng-if="managingUserBooks === true">
+   <div id="add-new-book" ng-click="nav.showBookSubmission()" ng-show="addingBook === false">Add a book</div>
+   <div id="book-management" ng-if="addingBook === true" ng-hide="addingBook === false">
       <div class="account-well">
-         <p>title</p>
+         <p>Title</p>
          <input id="submit-book-title-input" type="text" placeholder="Hammers On Bone" id="contactName">
       </div> 
       
       <div class="account-well">
-         <p>author</p>
+         <p>Author</p>
          <input id="submit-book-author-input" type="text" placeholder="Cassandra Khaw" id="contactName">
       </div> 
       
       <div class="account-well">
-         <p>genre</p>
+         <p>Genre</p>
          <input id="submit-book-genre-input" type="text" placeholder="Children's" id="contactName">
       </div> 
       
    </div>
    <div class="relative-parent">
-      <div id="submit-book" class="button-type-1" ng-if="managingUserBooks === true" ng-click="nav.submitBook()">Submit</div>
+      <div id="submit-book" class="button-type-1" ng-if="addingBook === true" ng-click="nav.submitBook()">Submit</div>
       <p id="submit-book-success"></p>
    </div>
    

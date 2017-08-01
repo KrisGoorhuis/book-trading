@@ -1,10 +1,19 @@
 <div id="book-browser-splash">
-   <div class="book-listing" id="book-listing-{{$index}}" ng-repeat="book in bookArray" ng-click="nav.centerBookSelection($event)">
-      <img src="/images/hammers.jpg">
-      <div id="blurb">
-         <p>Author: Cass Khaw</p>
-         <p>Genre: Children's</p>
-      </div>   
+   <h3 id="browser-cap">Everything</h3>
+   <div id="listing-container">
+      <div class="book-listing" id="book-listing-{{$index}}" ng-repeat="listing in bookArray" ng-click="nav.inspectBook($index, $event)">
+         <img src="/images/book-stack.jpg" class="invisible-to-click-event">
+         <div class="blurb invisible-to-click-event">
+            <p>{{listing.title}}</p>
+            <p>{{listing.author}}</p>
+            <p>{{listing.genre}}</p>
+            <p id="book-requested-notice" ng-if="listing.requested_by_user.length > 0">Book has been requested</p>
+         </div>   
+      </div>
+
+   
    </div>
+   
+   <individual-book-listing ng-if="individualListingShown"></individual-book-listing>
 </div>
 

@@ -2,7 +2,7 @@
 <html ng-app="bookTrader">
 <head>
    <link href="styles/style.css" rel="stylesheet" type="text/css">
-   <link href="https://fonts.googleapis.com/css?family=Pangolin|Poppins" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Pangolin|Poppins|Lora|Playfair+Display|Gentium+Basic" rel="stylesheet">
    
    <meta name="viewport" content="initial-scale=1">
    <meta name="viewport" content="width=device-width">
@@ -12,7 +12,6 @@
    <script src="https://use.fontawesome.com/dfbeabcf83.js"></script>
    
    <script src="/scripts/directives/bookish-directives.js"></script>
-   <script src="/scripts/controllers/book-list-controllers.js"></script>
    <script src="/scripts/controllers/nav-controller.js"></script>
    <script src="scripts/app.js"></script>
 </head>
@@ -21,23 +20,22 @@
    
 <body ng-controller="navController as nav">
    <div id="nav-container" class="center-column"> 
+      <h2 id="logo">book trading club</h2>
       <nav>
          <ul>
-            <li>home</li>
-            <li>by genre</li>
+            <li id="all-books" ng-click="nav.getBooks()">all books</li>
             <li ng-if="loggedIn === false" ng-click="nav.showAccountWindow()">log in</li>  
-            <li ng-if="loggedIn === true" ng-click="nav.manageUserBooks()">my books</li>
+            <li id="my-books" ng-if="loggedIn === true" ng-click="nav.manageUserBooks()">my books</li>
          </ul> 
       </nav>
-      
-      <account-access ng-show="showingAccountWindow === true"></account-access>
+       
       
    </div>
-   
+   <account-access ng-show="showingAccountWindow === true"></account-access>
    <dashboard ng-if="loggedIn === true"></dashboard>
    
    <book-browser-splash></book-browser-splash>
-
+   
    
 </body>
 </html>

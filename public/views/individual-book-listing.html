@@ -1,0 +1,17 @@
+
+<div id="individual-book-listing" class="center-column" ng-click="nav.closeIndividualListing($event)">
+
+   <div id="individual-book-box">
+      <img src="/images/book-stack.jpg">
+      <p>{{bookArray[listingIndex].title}}</p>
+      <p>by {{bookArray[listingIndex].author}}</p>
+      <p>{{bookArray[listingIndex].genre}}</p>
+      <br>
+      <p ng-if="managingUserBooks === false">Listed by {{bookArray[listingIndex].user_name}}</p>
+      
+      <p id="individual-listing-requested-by-users" ng-if="managingUserBooks && bookArray[listingIndex].requested_by_user[0]">{{requestingUsersText}}</p>
+
+      <p id="you-must-be-logged-in" ng-if="loggedIn === false">You must be logged in to request this book</p>
+      <div id="request-book-button" ng-if="!managingUserBooks && bookArray[listingIndex].user_name !== currentUserName" ng-click="nav.requestBook()">Request this book</div>
+   </div>
+</div>

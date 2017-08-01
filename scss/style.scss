@@ -1,5 +1,5 @@
 $hover-color: rgba(244, 244, 244, 1);
-$nav-height: 40px;
+$nav-height: 50px;
 
 @mixin sidebar-text-style {
    font-size: .62em;
@@ -25,21 +25,32 @@ body {
    overflow: auto;
    display: flex;
    justify-content: space-between;
-   align-items: center;
    font-family: 'Poppins';
+   background-color: aliceblue;
+   height: $nav-height;
+   #logo {
+      font-size: 1.8em;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0px;
+      font-weight: 100;
+   }
 }
 
 nav {
-   width: 100%;
-   height: $nav-height;
+   width: 500px;
+   height: 100%;
    list-style: none;
    display: flex;
-   justify-content: center;
+   justify-content: flex-start;
    ul {
       margin: 0px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      height: 100%;
    }
    li {
       height: 75%;
@@ -58,11 +69,12 @@ nav {
          cursor: pointer;
       }
 
-      i {
-         font-size: 1.5em;
+      #all-books {
+         text-decoration: underline;
       }
-      p {
-         @include sidebar-text-style;
+      
+      #my-books {
+         text-decoration: none;
       }
    }
 }
@@ -74,28 +86,46 @@ a {
 
 #book-browser-splash {
    display: flex;
+   flex-direction: column;
+}
+
+h3 {
+   margin: 20px;
+   margin-top: 40px;
+   margin-bottom: 0px;
+}
+
+#listing-container {
+   display: flex;
    flex-direction: row;
 }
 
 .book-listing {
-   min-height: 350px;
+   position: relative;
+   z-index: 1;
+   min-height: 300px;
    min-width: 200px;
    margin: 10px;
    padding: 10px;
    display: flex;
    flex-direction: column;
-   justify-content: center;
+   justify-content: space-between;
    align-items: center;
    transition: 0.3s;
+   position: relative;
    img {
-      height: 250px;
-      width: auto;
+      width: 200px;
+      height: auto;
       margin-bottom: 10px;
+      position: absolute;
    }
    
-   #blurb {
+   .blurb {
       position: absolute;
-      margin-top: 160px;
+      bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       p {
       margin: 0px;
       font-family: 'poppins';
@@ -106,13 +136,19 @@ a {
    
    &:hover {
       img {
-         height: 280px;
+         width: 220px;
+         height: auto;
       }
    }
 }
 
+#book-requested-notice {
+   background-color: rgba(220, 220, 220, 1);
+}
+
 #account-access {
    position: fixed;
+   z-index: 1000;
    top: 0;
    left: 0;
    width: 100%;
@@ -120,6 +156,8 @@ a {
    background-color: rgba(0, 0, 0, 0.5);
    font-family: 'poppins';
    #account-box {
+      position: relative;
+      z-index: 100;
       margin-top: 50px;
       padding: 10px;
       width: 400px;
@@ -169,13 +207,15 @@ a {
 }
 
 #dashboard {
+   margin-top: 20px;
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
    #requests-outstanding {
-
+      
       p {
+         font-family: 'lora';
          margin: 5px;
       }
    }
@@ -195,7 +235,48 @@ a {
    }
 }
 
-   
+#individual-book-listing {
+   position: fixed;
+   z-index: 10;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0, 0, 0, 0.5);
+   font-family: 'poppins';
+   #individual-book-box {   
+      margin-top: 50px;
+      padding: 10px;
+      width: 400px;
+      height: 550px;
+      border-radius: 4px;
+      background-color: rgb(250, 250, 250);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: beige;
+      img {
+         width: 300px;
+         height: auto;
+         margin: 10px;
+      }
+      p {
+         margin: 2px;
+         margin-left: 20px;
+         width: 100%;
+      }
+   }
+   #request-book-button {
+      &:hover {
+         background-color: $hover-color;
+         cursor: pointer;
+      }
+   }
+}
+
+.invisible-to-click-event {
+   pointer-events: none;
+}
 
 
 // Input placeholder color is fiddly.
