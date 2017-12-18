@@ -26,7 +26,9 @@
             <li id="all-books" ng-click="nav.getBooks()">all books</li>
             <li ng-if="loggedIn === false" ng-click="nav.showAccountWindow()">log in</li>  
             <li id="my-books" ng-if="loggedIn === true" ng-click="nav.manageUserBooks()">my books</li>
+            <li id="log-out" ng-if="loggedIn === true" ng-click="nav.logOut()">log out</li>
          </ul> 
+         
       </nav>
        
       

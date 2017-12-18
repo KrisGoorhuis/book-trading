@@ -87,25 +87,41 @@ a {
 #book-browser-splash {
    display: flex;
    flex-direction: column;
+   align-items: center;
 }
 
 h3 {
-   margin: 20px;
+   width: 1150px;
+   margin-left: 50px;
    margin-top: 40px;
    margin-bottom: 0px;
+   font-family: 'lora';
 }
 
 #listing-container {
+   flex-wrap: wrap;
    display: flex;
    flex-direction: row;
+   width: 1200px;
 }
+
+.individual-listing-wrapper {
+   display: inline-block;
+   padding: 3px;
+   margin: 10px;
+   background-color: bisque;
+   &:hover {
+      cursor: pointer;
+   }
+}
+
 
 .book-listing {
    position: relative;
    z-index: 1;
    min-height: 300px;
    min-width: 200px;
-   margin: 10px;
+   margin: 0px;
    padding: 10px;
    display: flex;
    flex-direction: column;
@@ -136,8 +152,9 @@ h3 {
    
    &:hover {
       img {
-         width: 220px;
+         width: 210px;
          height: auto;
+         margin-top: -5px;
       }
    }
 }
@@ -210,7 +227,11 @@ h3 {
    margin-top: 20px;
    display: flex;
    flex-direction: column;
-   justify-content: center;
+   width: 500px;
+   margin: auto;
+   text-align: center;
+   margin-top: 20px;
+   justify-content: space-around;
    align-items: center;
    #requests-outstanding {
       
@@ -226,11 +247,19 @@ h3 {
          margin: 5px;
       }
    }
+   
+   #submit-success-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+   }
+   
    #submit-book-success {
       font-size: 12px;
       color: rgba(30, 150, 30, .7);
       position: absolute;
-      bottom: -40px;
+      bottom: -30px;
       width: 100px;
    }
 }
@@ -248,7 +277,7 @@ h3 {
       margin-top: 50px;
       padding: 10px;
       width: 400px;
-      height: 550px;
+      height: 600px;
       border-radius: 4px;
       background-color: rgb(250, 250, 250);
       display: flex;
@@ -260,10 +289,14 @@ h3 {
          height: auto;
          margin: 10px;
       }
+      #under-text {
+         display: flex;
+         flex-direction: column;
+         align-items: left;
+         width: 95%;
+      }
       p {
          margin: 2px;
-         margin-left: 20px;
-         width: 100%;
       }
    }
    #request-book-button {

@@ -198,4 +198,66 @@ router.post('/requestBook', function(request, response) {
    });
 });
 
+router.post('/denyRequests', function(request, response) {
+   MongoClient.connect(localdb, function(error, database) {
+      database.collection('users', function(error, collection) {
+         
+         collection.update(
+            {"user_name": request.body.user_name},
+            {
+               $set: 
+               {
+                  ['book_list.' + request.body.title_index + '.requested_by_user']: [],
+               }
+            } 
+         ); 
+         
+      });
+   });
+});
+
+router.post('/acceptRequests', function(request, response) {
+   MongoClient.connect(localdb, function(error, database) {
+      database.collection('users', function(error, collection) {
+         collection.update(
+            {"user_name": request.body.user_name},
+            {
+               $set: 
+               {
+                  'book_list': request.body.new_book_list
+               }
+            } 
+         ); 
+      });
+      database.collection('bookList', function(error, collection) {
+         collection.remove(
+            {"user_name": request.body.user_name, "title": request.body.specific_book.title, "author": request.body.specific_book.author}
+         ); 
+      });
+      response.send("done!");
+   });
+});
+
+router.post('/removeBook', function(request, response) {
+   MongoClient.connect(localdb, function(error, database) {
+      database.collection('users', function(error, collection) {
+         collection.update(
+            {"user_name": request.body.user_name},
+            {
+               $set: 
+               {
+                  'book_list': request.body.new_book_list
+               }
+            } 
+         ); 
+      });
+      database.collection('bookList', function(error, collection) {
+         collection.remove(
+            {"user_name": request.body.user_name, "title": request.body.specific_book.title, "author": request.body.specific_book.author}
+         ); 
+      });
+      response.send("done!");
+   });
+});
+
 module.exports = router;

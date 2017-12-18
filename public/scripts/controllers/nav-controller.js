@@ -61,28 +61,33 @@
          $scope.listingIndex = index;
          $scope.individualListingShown = true;
          console.log($scope.bookArray[index].requested_by_user);
-         var users = "Requested by ";
+         var text = "No requests for this book.";
          if ($scope.managingUserBooks) {
             for (i = 0; i < $scope.bookArray[index].requested_by_user.length; i++) {
-               users += $scope.bookArray[index].requested_by_user[i];
+               
+               if ($scope.bookArray[index].requested_by_user.length > 0 && i === 0) {
+                  text = "Requested by "; // Switch out the base if there's some requests. 
+               }
+               
+               text += $scope.bookArray[index].requested_by_user[i];
+               
                if (i < $scope.bookArray[index].requested_by_user.length-2) { // Did not just add  second to last name
-                  users += ", ";
+                  text += ", ";
                }
                if (i === $scope.bookArray[index].requested_by_user.length-2) { // Just added second to last name
                   if ($scope.bookArray[index].requested_by_user.length === 2) {
                      // Don't add a comma if it's just two people
-                     users += " and ";
+                     text += " and ";
                      console.log("should be no comma");
                   } else {
-                    users += ", and "; 
-                  }
-                  
+                    text += ", and "; 
+                  }       
                } 
             }
             $('#individual-listing-requested-by-users').text("test");
             console.log($('#individual-listing-requested-by-users').text());
             console.log("setting text");
-            $scope.requestingUsersText = users;
+            $scope.requestingUsersText = text;
          }
          
       };
@@ -93,7 +98,6 @@
             $scope.individualListingShown = false;
             $('#request-book-button').text("Request this book");
          }
-         
       };
       
       this.showAccountWindow = function() {
@@ -133,6 +137,10 @@
          });
       };
       
+      this.logOut = function() {
+         
+      };
+      
       this.openCreateAccountWindow = function() {
          $scope.creatingAccount = true;
       };
@@ -157,17 +165,23 @@
          
       };
       
-      this.manageUserBooks = function() {
+      
+      function manageUserBooks() {
          getUserBooks();
-         $('#all-books').css('text-decoration', 'none');
-         $('#my-books').css('text-decoration', 'underline');
+         $('#all-books').css('background-color', '');
+         $('#my-books').css('background-color', 'rgba(244, 244, 244, 1)');
          $('#browser-cap').text('My books');
          $scope.managingUserBooks = true;
+      }
+      
+      this.manageUserBooks = function() {
+         manageUserBooks();
       };
       
       this.showBookSubmission = function() {
          $scope.addingBook = true;
          console.log($scope.addingBook);
+         $('#submit-book-success').text("");
       };
       
       this.submitBook = function() {
@@ -187,7 +201,7 @@
             $('#submit-book-success').text("Book posted!");
          });     
          $scope.addingBook = false;
-         console.log("adding book: " + $scope.addingBook);
+         manageUserBooks();
       };
       
       this.requestBook = function() {
@@ -214,8 +228,8 @@
       this.getBooks = function() {
          $scope.managingUserBooks = false;
          $http.get('/getBooks').then(function(response) {
-            $('#all-books').css('text-decoration', 'underline');
-            $('#my-books').css('text-decoration', 'none');
+            $('#all-books').css('background-color', 'rgba(244, 244, 244, 1)');
+            $('#my-books').css('background-color', '');
             $('#browser-cap').text('Everything');
             var bookList = response.data.items; // named "items" as part of a custom response object
             $scope.bookArray = bookList;
@@ -227,7 +241,60 @@
       };
       this.getBooks();
        
+      this.denyRequests = function() {
+         // remove all user requests, listing stays
+         var requestObject = {
+            "user_name": $scope.currentUserName,
+            "title_index": $scope.listingIndex
+         };
+         console.log(requestObject);
          
+         $http.post('/denyRequests', requestObject).then(function(error, response) {
+            
+         });
+         getUserBooks();
+      };
+      
+      // Currently identical to just removing the listing
+      // This'd work into helping you set up a meet or mail the thing if this were more than a proof project
+      this.acceptRequests = function() {
+         // remove listing entirely
+         var newBookArray = angular.copy($scope.bookArray);
+         newBookArray.splice($scope.listingIndex, 1);
+         var requestObject = {
+            "user_name": $scope.currentUserName,
+            "new_book_list": newBookArray,
+            "specific_book": $scope.bookArray[$scope.listingIndex]
+         };
+         
+         $http.post('/acceptRequests', requestObject).then(function(error, response) {
+            console.log(response);
+         });
+         getUserBooks();
+         
+         // These two are from the closeIndividualListing function
+         $scope.individualListingShown = false;
+         $('#request-book-button').text("Request this book");
+      };
+      
+      this.removeBook = function() {
+         var newBookArray = angular.copy($scope.bookArray);
+         newBookArray.splice($scope.listingIndex, 1);
+         var requestObject = {
+            "user_name": $scope.currentUserName,
+            "new_book_list": newBookArray,
+            "specific_book": $scope.bookArray[$scope.listingIndex]
+         };
+
+         $http.post('/removeBook', requestObject).then(function(error, response) {
+            console.log(response);
+         });
+         getUserBooks();
+         
+         // These two are from the closeIndividualListing function
+         $scope.individualListingShown = false;
+         $('#request-book-button').text("Request this book");
+      };
 
    }); 
 })();
